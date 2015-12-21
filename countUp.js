@@ -46,7 +46,8 @@ var CountUp = function(target, startVal, endVal, decimals, duration, options) {
         useEasing : true, // toggle easing
         useGrouping : true, // 1,000,000 vs 1000000
         separator : ',', // character to use as a separator
-        decimal : '.' // character to use as a decimal
+        decimal : '.', // character to use as a decimal
+        formatter : null
     };
     // extend default options with passed options object
     for (var key in options) {
@@ -181,6 +182,9 @@ var CountUp = function(target, startVal, endVal, decimals, duration, options) {
             while (rgx.test(x1)) {
                 x1 = x1.replace(rgx, '$1' + self.options.separator + '$2');
             }
+        }
+        if(self.options.formatter){
+            return self.options.formatter(self.options.prefix + x1 + x2 + self.options.suffix, self.options.prefix, x1, x2, self.options.suffix);
         }
         return self.options.prefix + x1 + x2 + self.options.suffix;
     };
